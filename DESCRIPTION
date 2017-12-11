@@ -8,16 +8,17 @@ Description: More about what it does (maybe more than one line)
 License: MIT
 Encoding: UTF-8
 LazyData: true
-Suggests: testthat,
+Depends: R (>= 2.10)
+Suggests: testthat ,
     knitr,
     rmarkdown
-Imports: dplyr,
-    readr,
-    tidyr,
+Imports: dplyr (>= 0.7.4),
+    readr (>= 1.1.1),
+    tidyr (>= 0.7.2),
     Rsamtools,
     GenomicAlignments,
     GenomicRanges,
-    stringr,
-    magrittr
+    stringr (>= 1.2.0),
+    magrittr (>= 1.5)
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1

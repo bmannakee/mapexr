@@ -37,6 +37,9 @@ The package includes Mutect1 output, Oncotator output, and **mapexr** output fro
 
 ```{r,eval=T,message=F}
 library(mapexr)
+library(dplyr)
+library(magrittr)
+library(ggplot2)
 # load data
 data(annotations,scores,variants)
 ```
