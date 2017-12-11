@@ -21,7 +21,7 @@ source("https://bioconductor.org/biocLite.R")
 biocLite(c("Rsamtools","GenomicRanges","GenomicAlignments"))
 
 ## install mapexr
-devtools::install_bitbucket("bmannakee/mapexr",build_vignettes=TRUE)
+devtools::install_github("bmannakee/mapexr",build_vignettes=TRUE)
 ```
 
 ## BLASTN
