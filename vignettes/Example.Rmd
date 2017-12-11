@@ -1,0 +1,96 @@
+---
+title: "Example"
+author: "Brian Mannakee"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+After running **mapexr**, as shown below, there a number of things a user can do to investigate the results.
+
+```
+### not run
+## file paths and variables
+bam <- "/path/to/tumor.bam"
+bamidx <- "/path/to/tumor.bai"
+variants <- "/path/to/variants.vcf"
+blastout <- "/path/to/blastoutput.txt" # Read level blast results, not required
+blastpath <- "/path/to/blastn" # if blast is in the users path, just "blastn" here
+blastdb <- "/path/to/combined_db"
+threads <- 1 # number of threads consumed by blastn
+mapq <- 1 # this is the default for minimum mapq score
+
+scores <- run_mapex(bam_file=bam,
+		     bam_idx=bamidx,
+		     variant_file=variants,
+		     variant_file_type='vcf',
+		     blast_out_file=blastout,
+		     blastn_path=blastpath,
+		     blast_threads=threads,
+		     min_mapq=mapq)
+```
+
+The package includes Mutect1 output, Oncotator output, and **mapexr** output from Chomosome 12 of single PDX sample for illustration
+
+```{r,eval=T,message=F}
+library(mapexr)
+library(tidyverse)
+# load data
+data(annotations,scores,variants)
+```
+
+These data have been cleaned, and the scripts and raw data used to prepare them can be found at <https://github.com/bmannakee/mapexr/data-raw>.
+The first step in most analyses is to merge variant calls, annotations, and scores.
+
+```{r,eval=T,message=F}
+merged <- variants %>% left_join(annotations,by=c('chrom','loc','ref','alt')) %>%
+  left_join(scores,by=c('chrom','loc')) %>% dplyr::select(-variant_classification)
+merged %>% print(n=5)
+```
+
+We now have the data in a form that is easy to work with.
+One question of interest is the distribution of variant scores from this sample.
+Because this is a sample with fairly large mouse contamination, we see that the vast majority of scores are 0, indicating that the best alignment for supporting reads is to the mouse chromosome.
+
+```{r,eval=T,message=F}
+ggplot(merged %>% dplyr::filter(judgement=="KEEP"),aes(variant_score)) + 
+  geom_density() + theme_classic()
+```
+
+We can ask what is the allele frequency distribution of variants rejected by **mapexr**.
+This sample has approximately 40\% mouse contamination, so we see peaks around 0.2 and 0.4, as we would expect.
+
+```{r,eval=T,message=F}
+fr <- merged %>% dplyr::filter(judgement=="KEEP" & variant_score < 0.5)
+ggplot(fr,aes(vaf)) + geom_histogram() + theme_classic()
+```
+
+The distribution of allele frequencies of variants accepted by **mapexr** shows that there are only three variants the passed both MuTect and **mapexr**.
+
+```{r,eval=T,message=F}
+fr <- merged %>% dplyr::filter(judgement=="KEEP" & variant_score >= 0.5)
+ggplot(fr,aes(vaf)) + geom_histogram() + theme_classic()
+```
+
+We can look at these variants in detail.
+
+```{r,eval=T,message=F}
+merged %>% dplyr::filter(judgement=="KEEP" & variant_score >= 0.5)
+```
+
+It is also interesting to check what variants were kept by MuTect but rejected by **mapexr**, which in this example is 1,101 variants.
+
+```{r,eval=T,message=F}
+merged %>% dplyr::filter(judgement=="KEEP" & variant_score < 0.5) %>% print(n=5)
+```
+
+This sample happens to have a KRAS mutation which is accepted by MuTect but rejected by **mapexr**, as well as a mutation that was rejected by MuTect.
+
+```{r,eval=T,message=F}
+merged %>% dplyr::filter(gene=="KRAS")
+```
+
+The C>T mutation at chr12:25398284 is a G12D mutation commonly found in pancreatic cancer, while the other two mutations represent mouse reads.
