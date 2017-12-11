@@ -5,7 +5,6 @@
 #' @param blast_path /path/to/blast/executable
 #' @param dp_path /path/to/combined/genome/blastdb
 #' @param blast_threads number of thread to run blast with
-
 #' @return list containing best hit blast scores
 
 

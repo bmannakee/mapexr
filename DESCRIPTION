@@ -19,6 +19,7 @@ Imports: dplyr (>= 0.7.4),
     GenomicAlignments,
     GenomicRanges,
     stringr (>= 1.2.0),
-    magrittr (>= 1.5)
+    magrittr (>= 1.5),
+    ggplot2 (>= 2.2.1)
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
