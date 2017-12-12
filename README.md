@@ -8,10 +8,6 @@ It is intended to be used to filter spurious variant calls resulting from mouse 
 ## Dependencies and Installation
 **mapexr** depends on several bioconductor packages for bam file manipulation as well as functions included in the *tidyverse*.
 The dependencies can be installed prior to installation of **mapexr** using the following commands. 
-The bitbucket repository for **mapexr** includes example BAM and variant files, as well as a complete blast database for the combined human(GRch37)/mouse(mm9) reference genomes.
-If a local BLASTN installation is available in the users path, the Example vignette will run, verifying that the system is correctly set up.
-As a result of the example data, the download for the package is ~1.6GB.
-As the package exits development, smaller versions without the example database will be released on CRAN and BioConductor.
 ```
 ### Not run
 ## install dependencies

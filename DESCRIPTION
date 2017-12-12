@@ -1,6 +1,6 @@
 Package: mapexr
 Type: Package
-Title: Sensitive and Specific Post-call Variant Filtering of Genetic Variants in Xenograft and Primary Tumors
+Title: Sensitive and Specific Filtering of Genetic Variants in Xenograft and Primary Tumors
 Version: 0.1.0
 Authors@R: person("Brian","Mannakee",email="mannakee@email.arizona.edu",role=c('aut','cre'))
 Description: More about what it does (maybe more than one line)
