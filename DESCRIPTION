@@ -3,9 +3,7 @@ Type: Package
 Title: Sensitive and Specific Filtering of Genetic Variants in Xenograft and Primary Tumors
 Version: 0.1.0
 Authors@R: person("Brian","Mannakee",email="mannakee@email.arizona.edu",role=c('aut','cre'))
-Description: This package is an implementation of the **MAPEX** algorithm described in `Mannakee et al. ...`.
-The algorithm is a post-variant-calling filter for variants that uses **BLASTN** to determine the fraction of reads supporting a variant call that align best to the site of the variant.
-It is intended to be used to filter spurious variant calls resulting from mouse DNA contamination in patient-derived xenograft(PDX) tumors, and to evaluate supporting reads for potential paralog risk in primary tumors.
+Description: This package is an implementation of the **MAPEX** algorithm described in `Mannakee et al. ...`. The algorithm is a post-variant-calling filter for variants that uses **BLASTN** to determine the fraction of reads supporting a variant call that align best to the site of the variant. It is intended to be used to filter spurious variant calls resulting from mouse DNA contamination in patient-derived xenograft(PDX) tumors, and to evaluate supporting reads for potential paralog risk in primary tumors.
 License: MIT
 Encoding: UTF-8
 LazyData: true
