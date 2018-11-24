@@ -46,7 +46,7 @@ General instructions for using `makeblastdb` can be found at <https://www.ncbi.n
 The algorithm takes as input a tumor alignment `.bam` file (with index `.bai`), and a set of variant calls derived from that alignment.
 Four types of variant call file are supported, with built in parsers for `VCF >=ver4.0`, the **MuTect1** output format `call_stats.txt`, the **Varscan2** output format `.snp` and the MAFLITE format.
 For each of the four supported file types, you use the `variant_file_type` argument to tell mapex how to parse the file.
-The four arguments to `variant_file_type` are `vcf`, `call_stats`, `snp`, and `maf`.
+The four supported arguments to `variant_file_type` are `vcf`, `call_stats`, `snp`, and `maf`.
 The MAFLITE format is a 5-column tab-separated format with columns `chr`, `start`, `end`, `ref_allele`, `alt_allele`.
 A header is not required, but if provided should match these column names for use with **mapexr**.
 The package exports one main function `run_mapex()` (See function documentation) as well as the `load_variants` (see function documentation) function which is exported to facilitate trouble-shooting of the parsing of variant file formats.
